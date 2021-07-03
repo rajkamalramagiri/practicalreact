@@ -1,9 +1,28 @@
 import "./App.css";
 import { Typography } from "@material-ui/core";
+import { Container } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core";
+
+import { Button } from "@material-ui/core";
+
+const useStyles = makeStyles({
+  btn: {
+    fontSize: 60,
+    backgroundColor: "violet",
+    "&:hover": {
+      backgroundColor: "blue",
+    },
+  },
+  title: {
+    textDecoration: "underline",
+    marginBottom: 20,
+  },
+});
 
 function App() {
+  const classes = useStyles();
   return (
-    <div>
+    <Container>
       {/* <Typography
         color="secondary"
         noWrap
@@ -45,10 +64,18 @@ function App() {
         nec sollicitudin.
       </Typography> */}
 
-      <Typography variant="h6" color="textSecondary" gutterBottom>
+      <Typography
+        variant="h6"
+        className={classes.title}
+        color="textSecondary"
+        gutterBottom
+      >
         Create a New Note
       </Typography>
-    </div>
+      <Button variant="contained" className={classes.btn} color="secondary">
+        Submit
+      </Button>
+    </Container>
   );
 }
 
