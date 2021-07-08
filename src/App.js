@@ -35,8 +35,14 @@ const useStyles = makeStyles({
     textColor: "#ffffff",
   },
   textIn: {
-    color: "#0000ff",
+    color: "#ffffff",
     backgroundColor: "red",
+    "& .MuiInputBase-input": {
+      color: "#ffffff",
+    },
+    "& .MuiFormLabel-root": {
+      color: "yellow",
+    },
   },
   field: {
     marginTop: 80,
@@ -87,6 +93,7 @@ function App() {
         <form noValidate autoComplete="off">
           <TextField
             className={classes.textIn}
+            color="secondary"
             variant="outlined"
             fullWidth
             required
