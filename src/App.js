@@ -4,8 +4,11 @@ import Avatar from "@material-ui/core/Avatar";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import MenuIcon from "@material-ui/icons/Menu";
 import Drawer from "@material-ui/core/Drawer";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { BrowserRouter } from "react-router-dom";
+
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
 
 import FormLabel from "@material-ui/core/FormLabel";
 import "./App.css";
@@ -21,7 +24,7 @@ import { Typography } from "@material-ui/core";
 import FormControl from "@material-ui/core/FormControl";
 import { Container } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core";
-import { createMuiTheme, ThemeProvider } from "@material-ui/core";
+import { createTheme, ThemeProvider } from "@material-ui/core";
 import { Button } from "@material-ui/core";
 import { purple } from "@material-ui/core/colors";
 import { TextField } from "@material-ui/core";
@@ -39,7 +42,7 @@ import Divider from "@material-ui/core/Divider";
 import InboxIcon from "@material-ui/icons/Inbox";
 import DraftsIcon from "@material-ui/icons/Drafts";
 
-const theme = createMuiTheme({
+const theme = createTheme({
   palette: {
     primary: {
       main: "#00ff00",
@@ -70,6 +73,10 @@ const useStyles = makeStyles({
       color: "white",
     },
   },
+  active: {
+    backgroundColor: "#f4f4f4",
+  },
+
   root1: {
     maxWidth: 345,
     marginTop: "55px",
@@ -83,6 +90,9 @@ const useStyles = makeStyles({
     "&:hover": {
       backgroundColor: "blue",
     },
+  },
+  headtitle: {
+    flexGrow: 1,
   },
   title: {
     textDecoration: "underline",
@@ -107,6 +117,9 @@ const useStyles = makeStyles({
   flex: {
     display: "flex",
   },
+  appbar: {
+    width: `calc(100% - 150px)`,
+  },
 });
 
 function App() {
@@ -124,15 +137,25 @@ function App() {
     history.push("/login");
   };
   const history = useHistory();
+  const location = useLocation();
 
   const onSubmit = (data) => {
     if (lastName == "") setLastNameError(true);
   };
-
   const classes = useStyles();
+
   return (
     <BrowserRouter>
       <ThemeProvider theme={theme}>
+        <AppBar className={classes.appbar} elevation={0}>
+          <Toolbar>
+            <Typography className={classes.headtitle}>
+              Welcome to our Page
+            </Typography>
+            <Typography>Login</Typography>
+            <Avatar src="https://yt3.ggpht.com/yti/APfAmoGQo18mhhyGiKG6iZ-VPQBiXOP_aDGUF3MRpbOicno=s88-c-k-c0x00ffffff-no-rj-mo" />
+          </Toolbar>
+        </AppBar>
         <Container className={classes.flex}>
           <div>
             <Drawer
@@ -144,13 +167,31 @@ function App() {
                 <Typography variant="h5">Ninja Notes</Typography>
 
                 <List>
-                  <ListItem button onClick={redirect}>
+                  <ListItem
+                    button
+                    onClick={redirect}
+                    className={
+                      history.location.pathname == "/login"
+                        ? classes.active
+                        : ""
+                    }
+                  >
                     <ListItemIcon>
                       <InboxIcon />
                     </ListItemIcon>
                     <ListItemText primary="Inbox" />
                   </ListItem>
-                  <ListItem button onClick={() => history.push("/draft")}>
+                  <ListItem
+                    button
+                    onClick={() => {
+                      history.push("/draft");
+                    }}
+                    className={
+                      history.location.pathname == "/draft"
+                        ? classes.active
+                        : ""
+                    }
+                  >
                     <ListItemIcon>
                       <DraftsIcon />
                     </ListItemIcon>
@@ -173,7 +214,7 @@ function App() {
         >
           Hello world
         </Drawer> */}
-          <div>
+          <div style={{ marginTop: "100px" }}>
             <Typography
               color="secondary"
               // noWrap
@@ -294,21 +335,143 @@ function App() {
             </form>
 
             <Grid container>
-              <Grid item xs={12}>
-                <Paper>1</Paper>
+              <Grid item md={4} sm={6} xs={12}>
+                <Paper>
+                  <Card spacing={4} className={classes.root1} elevation={2}>
+                    <CardHeader
+                      avatar={
+                        <Avatar aria-label="recipe" className={classes.avatar}>
+                          R
+                        </Avatar>
+                      }
+                      action={
+                        <IconButton aria-label="settings">
+                          <MoreVertIcon />
+                        </IconButton>
+                      }
+                      title="Ayirathil oruvan"
+                      subheader="This movie with the plot of exploring cholas dynasty in pasts"
+                    />
+                    <CardContent>
+                      <Typography
+                        variant="body2"
+                        color="textSecondary"
+                        component="p"
+                      >
+                        This impressive paella is a perfect party dish and a fun
+                        meal to cook together with your guests. Add 1 cup of
+                        frozen peas along with the mussels, if you like.
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Paper>
               </Grid>
               <Grid item md={4} sm={6} xs={12}>
-                <Paper>1</Paper>
-                {3}
+                <Paper>
+                  <Card spacing={4} className={classes.root1} elevation={2}>
+                    <CardHeader
+                      avatar={
+                        <Avatar aria-label="recipe" className={classes.avatar}>
+                          R
+                        </Avatar>
+                      }
+                      action={
+                        <IconButton aria-label="settings">
+                          <MoreVertIcon />
+                        </IconButton>
+                      }
+                      title="Ayirathil oruvan"
+                      subheader="This movie with the plot of exploring cholas dynasty in pasts"
+                    />
+                    <CardContent>
+                      <Typography
+                        variant="body2"
+                        color="textSecondary"
+                        component="p"
+                      >
+                        This impressive paella is a perfect party dish and a fun
+                        meal to cook together with your guests. Add 1 cup of
+                        frozen peas along with the mussels, if you like. This
+                        impressive paella is a perfect party dish and a fun meal
+                        to cook together with your guests. Add 1 cup of frozen
+                        peas along with the mussels, if you like. This
+                        impressive paella is a perfect party dish and a fun meal
+                        to cook together with your guests. Add 1 cup of frozen
+                        peas along with the mussels, if you like. This
+                        impressive paella is a perfect party dish and a fun meal
+                        to cook together with your guests. Add 1 cup of frozen
+                        peas along with the mussels, if you like.
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Paper>
               </Grid>
               <Grid item md={4} sm={6} xs={12}>
-                <Paper>1</Paper>
+                <Paper>
+                  {" "}
+                  <Card spacing={4} className={classes.root1} elevation={2}>
+                    <CardHeader
+                      avatar={
+                        <Avatar aria-label="recipe" className={classes.avatar}>
+                          R
+                        </Avatar>
+                      }
+                      action={
+                        <IconButton aria-label="settings">
+                          <MoreVertIcon />
+                        </IconButton>
+                      }
+                      title="Ayirathil oruvan"
+                      subheader="This movie with the plot of exploring cholas dynasty in pasts"
+                    />
+                    <CardContent>
+                      <Typography
+                        variant="body2"
+                        color="textSecondary"
+                        component="p"
+                      >
+                        This impressive paella is a perfect party dish and a fun
+                        meal to cook together with your guests. Add 1 cup of
+                        frozen peas along with the mussels, if you like.
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Paper>
               </Grid>
               <Grid item md={4} sm={6} xs={12}>
-                <Paper>1</Paper>
+                <Paper>
+                  {" "}
+                  <Card spacing={4} className={classes.root1} elevation={2}>
+                    <CardHeader
+                      avatar={
+                        <Avatar aria-label="recipe" className={classes.avatar}>
+                          R
+                        </Avatar>
+                      }
+                      action={
+                        <IconButton aria-label="settings">
+                          <MoreVertIcon />
+                        </IconButton>
+                      }
+                      title="Ayirathil oruvan"
+                      subheader="This movie with the plot of exploring cholas dynasty in pasts"
+                    />
+                    <CardContent>
+                      <Typography
+                        variant="body2"
+                        color="textSecondary"
+                        component="p"
+                      >
+                        This impressive paella is a perfect party dish and a fun
+                        meal to cook together with your guests. Add 1 cup of
+                        frozen peas along with the mussels, if you like.
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Paper>
               </Grid>
             </Grid>
-            <Typography align="center">
+            <Typography>
               <Card spacing={4} className={classes.root}>
                 <CardHeader
                   avatar={
@@ -336,31 +499,169 @@ function App() {
                   </Typography>
                 </CardContent>
               </Card>
+              <Card spacing={4} className={classes.root1} elevation={2}>
+                <CardHeader
+                  avatar={
+                    <Avatar aria-label="recipe" className={classes.avatar}>
+                      R
+                    </Avatar>
+                  }
+                  action={
+                    <IconButton aria-label="settings">
+                      <MoreVertIcon />
+                    </IconButton>
+                  }
+                  title="Ayirathil oruvan"
+                  subheader="This movie with the plot of exploring cholas dynasty in pasts"
+                />
+                <CardContent>
+                  <Typography
+                    variant="body2"
+                    color="textSecondary"
+                    component="p"
+                  >
+                    This impressive paella is a perfect party dish and a fun
+                    meal to cook together with your guests. Add 1 cup of frozen
+                    peas along with the mussels, if you like.
+                  </Typography>
+                </CardContent>
+              </Card>{" "}
+              <Card spacing={4} className={classes.root1} elevation={2}>
+                <CardHeader
+                  avatar={
+                    <Avatar aria-label="recipe" className={classes.avatar}>
+                      R
+                    </Avatar>
+                  }
+                  action={
+                    <IconButton aria-label="settings">
+                      <MoreVertIcon />
+                    </IconButton>
+                  }
+                  title="Ayirathil oruvan"
+                  subheader="This movie with the plot of exploring cholas dynasty in pasts"
+                />
+                <CardContent>
+                  <Typography
+                    variant="body2"
+                    color="textSecondary"
+                    component="p"
+                  >
+                    This impressive paella is a perfect party dish and a fun
+                    meal to cook together with your guests. Add 1 cup of frozen
+                    peas along with the mussels, if you like.
+                  </Typography>
+                </CardContent>
+              </Card>{" "}
+              <Card spacing={4} className={classes.root1} elevation={2}>
+                <CardHeader
+                  avatar={
+                    <Avatar aria-label="recipe" className={classes.avatar}>
+                      R
+                    </Avatar>
+                  }
+                  action={
+                    <IconButton aria-label="settings">
+                      <MoreVertIcon />
+                    </IconButton>
+                  }
+                  title="Ayirathil oruvan"
+                  subheader="This movie with the plot of exploring cholas dynasty in pasts"
+                />
+                <CardContent>
+                  <Typography
+                    variant="body2"
+                    color="textSecondary"
+                    component="p"
+                  >
+                    This impressive paella is a perfect party dish and a fun
+                    meal to cook together with your guests. Add 1 cup of frozen
+                    peas along with the mussels, if you like.
+                  </Typography>
+                </CardContent>
+              </Card>{" "}
+              <Card spacing={4} className={classes.root1} elevation={2}>
+                <CardHeader
+                  avatar={
+                    <Avatar aria-label="recipe" className={classes.avatar}>
+                      R
+                    </Avatar>
+                  }
+                  action={
+                    <IconButton aria-label="settings">
+                      <MoreVertIcon />
+                    </IconButton>
+                  }
+                  title="Ayirathil oruvan"
+                  subheader="This movie with the plot of exploring cholas dynasty in pasts"
+                />
+                <CardContent>
+                  <Typography
+                    variant="body2"
+                    color="textSecondary"
+                    component="p"
+                  >
+                    This impressive paella is a perfect party dish and a fun
+                    meal to cook together with your guests. Add 1 cup of frozen
+                    peas along with the mussels, if you like.
+                  </Typography>
+                </CardContent>
+              </Card>{" "}
+              <Card spacing={4} className={classes.root1} elevation={2}>
+                <CardHeader
+                  avatar={
+                    <Avatar aria-label="recipe" className={classes.avatar}>
+                      R
+                    </Avatar>
+                  }
+                  action={
+                    <IconButton aria-label="settings">
+                      <MoreVertIcon />
+                    </IconButton>
+                  }
+                  title="Ayirathil oruvan"
+                  subheader="This movie with the plot of exploring cholas dynasty in pasts"
+                />
+                <CardContent>
+                  <Typography
+                    variant="body2"
+                    color="textSecondary"
+                    component="p"
+                  >
+                    This impressive paella is a perfect party dish and a fun
+                    meal to cook together with your guests. Add 1 cup of frozen
+                    peas along with the mussels, if you like.
+                  </Typography>
+                </CardContent>
+              </Card>
+              <Card spacing={4} className={classes.root1} elevation={2}>
+                <CardHeader
+                  avatar={
+                    <Avatar aria-label="recipe" className={classes.avatar}>
+                      R
+                    </Avatar>
+                  }
+                  action={
+                    <IconButton aria-label="settings">
+                      <MoreVertIcon />
+                    </IconButton>
+                  }
+                  title="Ayirathil oruvan"
+                  subheader="This movie with the plot of exploring cholas dynasty in pasts"
+                />
+                <CardContent>
+                  <Typography
+                    variant="body2"
+                    color="textSecondary"
+                    component="p"
+                  >
+                    This impressive paella is a perfect party dish and a fun
+                    meal to cook together with your guests. Add 1 cup of frozen
+                    peas along with the mussels, if you like.
+                  </Typography>
+                </CardContent>
+              </Card>
             </Typography>
-
-            <Card spacing={4} className={classes.root1} elevation={9}>
-              <CardHeader
-                avatar={
-                  <Avatar aria-label="recipe" className={classes.avatar}>
-                    R
-                  </Avatar>
-                }
-                action={
-                  <IconButton aria-label="settings">
-                    <MoreVertIcon />
-                  </IconButton>
-                }
-                title="Ayirathil oruvan"
-                subheader="This movie with the plot of exploring cholas dynasty in pasts"
-              />
-              <CardContent>
-                <Typography variant="body2" color="textSecondary" component="p">
-                  This impressive paella is a perfect party dish and a fun meal
-                  to cook together with your guests. Add 1 cup of frozen peas
-                  along with the mussels, if you like.
-                </Typography>
-              </CardContent>
-            </Card>
           </div>
         </Container>
       </ThemeProvider>
