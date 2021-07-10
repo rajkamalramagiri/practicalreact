@@ -1,10 +1,16 @@
-import "./App.css";
+import { useHistory } from "react-router-dom";
 
 function App() {
+  let history = useHistory();
+
+  function handleClick() {
+    history.push("/home");
+  }
+
   return (
-    <div className="App">
-      <h2>Master</h2>
-    </div>
+    <button type="button" onClick={handleClick}>
+      Go home
+    </button>
   );
 }
 
