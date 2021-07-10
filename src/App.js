@@ -4,6 +4,8 @@ import Avatar from "@material-ui/core/Avatar";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import MenuIcon from "@material-ui/icons/Menu";
 import Drawer from "@material-ui/core/Drawer";
+import { useHistory } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 
 import FormLabel from "@material-ui/core/FormLabel";
 import "./App.css";
@@ -27,6 +29,15 @@ import Radio from "@material-ui/core/Radio";
 import { useForm } from "react-hook-form";
 import { blue } from "chalk";
 import { useState } from "react";
+
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+
+import Divider from "@material-ui/core/Divider";
+import InboxIcon from "@material-ui/icons/Inbox";
+import DraftsIcon from "@material-ui/icons/Drafts";
 
 const theme = createMuiTheme({
   palette: {
@@ -109,6 +120,10 @@ function App() {
   const [lastName, setLastName] = useState("");
   const [lastNameError, setLastNameError] = useState(false);
   const [category, setCategory] = useState("");
+  const redirect = () => {
+    history.push("/login");
+  };
+  const history = useHistory();
 
   const onSubmit = (data) => {
     if (lastName == "") setLastNameError(true);
@@ -116,21 +131,37 @@ function App() {
 
   const classes = useStyles();
   return (
-    <ThemeProvider theme={theme}>
-      <Container className={classes.flex}>
-        <div>
-          <Drawer
-            className={classes.drawer}
-            variant="permanent"
-            classes={{ paper: classes.drawer }}
-          >
-            <div>
-              <Typography variant="h5">Ninja Notes</Typography>
-            </div>
-          </Drawer>
-        </div>
+    <BrowserRouter>
+      <ThemeProvider theme={theme}>
+        <Container className={classes.flex}>
+          <div>
+            <Drawer
+              className={classes.drawer}
+              variant="permanent"
+              classes={{ paper: classes.drawer }}
+            >
+              <div>
+                <Typography variant="h5">Ninja Notes</Typography>
 
-        {/* side drawer
+                <List>
+                  <ListItem button onClick={redirect}>
+                    <ListItemIcon>
+                      <InboxIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Inbox" />
+                  </ListItem>
+                  <ListItem button onClick={() => history.push("/draft")}>
+                    <ListItemIcon>
+                      <DraftsIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Draft" />
+                  </ListItem>
+                </List>
+              </div>
+            </Drawer>
+          </div>
+
+          {/* side drawer
         <div className="menu">
           <MenuIcon onClick={() => setIsOpen(true)} />
         </div>
@@ -142,135 +173,172 @@ function App() {
         >
           Hello world
         </Drawer> */}
-        <div>
-          <Typography
-            color="secondary"
-            // noWrap
-            // color="primary"
-            align="center"
-            // variant="h1"
-          >
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-            molestie porta sem, sed tristique massa dignissim nec. Aliquam
-            vestibulum, magna at facilisis dapibus, tortor leo rutrum velit, sed
-            pretium tellus sem sed sapien. In suscipit orci lectus, vel
-            elementum felis tempor id.
-          </Typography>
-
-          <Typography
-            variant="h6"
-            className={classes.title}
-            color="primary"
-            gutterBottom
-          >
-            Create a New Note
-          </Typography>
-          <Button variant="contained" className={classes.btn} color="secondary">
-            Submit
-          </Button>
-          <Button variant="contained" color="primary">
-            Save
-          </Button>
-          <Button variant="contained" color="secondary">
-            secondary
-          </Button>
-          <br />
-          <br />
-          <br />
-          <form noValidate autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
-            <TextField
-              className={classes.textIn}
+          <div>
+            <Typography
               color="secondary"
-              variant="outlined"
-              fullWidth
-              required
-              label="Note Title"
-              placeholder="enter title"
-            />
-            <TextField
-              className={classes.field}
-              // className={classes.title}
-              variant="outlined"
-              fullWidth
-              required
-              label="Details"
-              multiline
-              rows={3}
-              // error={true}
-              // or
-              // error={detailsError}
+              // noWrap
+              // color="primary"
+              align="center"
+              // variant="h1"
+            >
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+              molestie porta sem, sed tristique massa dignissim nec. Aliquam
+              vestibulum, magna at facilisis dapibus, tortor leo rutrum velit,
+              sed pretium tellus sem sed sapien. In suscipit orci lectus, vel
+              elementum felis tempor id.
+            </Typography>
 
-              placeholder="enter name"
-              helperText="invalid name"
-              {...register("details", {
-                required: "details mandatory",
-              })}
-            />
-            <TextField
-              {...register("example", { required: "input madatory" })}
-              error={(errors.example?.message && true) || false}
-              helperText={errors.example?.message || ""}
-            />
-
-            <TextField
-              className={classes.field}
-              variant="outlined"
-              fullWidth
-              required
-              label="Last Name"
-              multiline
-              error={lastNameError}
-              placeholder="enter last name"
-              onChange={async (e) => {
-                await setLastName(e.target.value);
-                if (lastName == "") setLastNameError(true);
-                else setLastNameError(false);
-              }}
-              // helperText="invalid name"
-            />
-
-            <FormControl className={classes.field}>
-              <FormLabel component="legend">Category</FormLabel>
-              <RadioGroup
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-              >
-                <FormControlLabel
-                  control={<Radio />}
-                  value="money"
-                  label="Money"
-                />
-
-                <FormControlLabel
-                  control={<Radio />}
-                  value="goal"
-                  label="Goal"
-                />
-              </RadioGroup>
-            </FormControl>
-            <Button variant="contained" color="secondary" type="submit">
-              submit
+            <Typography
+              variant="h6"
+              className={classes.title}
+              color="primary"
+              gutterBottom
+            >
+              Create a New Note
+            </Typography>
+            <Button
+              variant="contained"
+              className={classes.btn}
+              color="secondary"
+            >
+              Submit
             </Button>
-            {category}
-          </form>
+            <Button variant="contained" color="primary">
+              Save
+            </Button>
+            <Button variant="contained" color="secondary">
+              secondary
+            </Button>
+            <br />
+            <br />
+            <br />
+            <form
+              noValidate
+              autoComplete="off"
+              onSubmit={handleSubmit(onSubmit)}
+            >
+              <TextField
+                className={classes.textIn}
+                color="secondary"
+                variant="outlined"
+                fullWidth
+                required
+                label="Note Title"
+                placeholder="enter title"
+              />
+              <TextField
+                className={classes.field}
+                // className={classes.title}
+                variant="outlined"
+                fullWidth
+                required
+                label="Details"
+                multiline
+                rows={3}
+                // error={true}
+                // or
+                // error={detailsError}
 
-          <Grid container>
-            <Grid item xs={12}>
-              <Paper>1</Paper>
+                placeholder="enter name"
+                helperText="invalid name"
+                {...register("details", {
+                  required: "details mandatory",
+                })}
+              />
+              <TextField
+                {...register("example", { required: "input madatory" })}
+                error={(errors.example?.message && true) || false}
+                helperText={errors.example?.message || ""}
+              />
+
+              <TextField
+                className={classes.field}
+                variant="outlined"
+                fullWidth
+                required
+                label="Last Name"
+                multiline
+                error={lastNameError}
+                placeholder="enter last name"
+                onChange={async (e) => {
+                  await setLastName(e.target.value);
+                  if (lastName == "") setLastNameError(true);
+                  else setLastNameError(false);
+                }}
+                // helperText="invalid name"
+              />
+
+              <FormControl className={classes.field}>
+                <FormLabel component="legend">Category</FormLabel>
+                <RadioGroup
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
+                >
+                  <FormControlLabel
+                    control={<Radio />}
+                    value="money"
+                    label="Money"
+                  />
+
+                  <FormControlLabel
+                    control={<Radio />}
+                    value="goal"
+                    label="Goal"
+                  />
+                </RadioGroup>
+              </FormControl>
+              <Button variant="contained" color="secondary" type="submit">
+                submit
+              </Button>
+              {category}
+            </form>
+
+            <Grid container>
+              <Grid item xs={12}>
+                <Paper>1</Paper>
+              </Grid>
+              <Grid item md={4} sm={6} xs={12}>
+                <Paper>1</Paper>
+                {3}
+              </Grid>
+              <Grid item md={4} sm={6} xs={12}>
+                <Paper>1</Paper>
+              </Grid>
+              <Grid item md={4} sm={6} xs={12}>
+                <Paper>1</Paper>
+              </Grid>
             </Grid>
-            <Grid item md={4} sm={6} xs={12}>
-              <Paper>1</Paper>
-              {3}
-            </Grid>
-            <Grid item md={4} sm={6} xs={12}>
-              <Paper>1</Paper>
-            </Grid>
-            <Grid item md={4} sm={6} xs={12}>
-              <Paper>1</Paper>
-            </Grid>
-          </Grid>
-          <Typography align="center">
-            <Card spacing={4} className={classes.root}>
+            <Typography align="center">
+              <Card spacing={4} className={classes.root}>
+                <CardHeader
+                  avatar={
+                    <Avatar aria-label="recipe" className={classes.avatar}>
+                      R
+                    </Avatar>
+                  }
+                  action={
+                    <IconButton aria-label="settings">
+                      <MoreVertIcon />
+                    </IconButton>
+                  }
+                  title="Ayirathil oruvan"
+                  subheader="This movie with the plot of exploring cholas dynasty in pasts"
+                />
+                <CardContent>
+                  <Typography
+                    variant="body2"
+                    color="textSecondary"
+                    component="p"
+                  >
+                    This impressive paella is a perfect party dish and a fun
+                    meal to cook together with your guests. Add 1 cup of frozen
+                    peas along with the mussels, if you like.
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Typography>
+
+            <Card spacing={4} className={classes.root1} elevation={9}>
               <CardHeader
                 avatar={
                   <Avatar aria-label="recipe" className={classes.avatar}>
@@ -293,34 +361,10 @@ function App() {
                 </Typography>
               </CardContent>
             </Card>
-          </Typography>
-
-          <Card spacing={4} className={classes.root1} elevation={9}>
-            <CardHeader
-              avatar={
-                <Avatar aria-label="recipe" className={classes.avatar}>
-                  R
-                </Avatar>
-              }
-              action={
-                <IconButton aria-label="settings">
-                  <MoreVertIcon />
-                </IconButton>
-              }
-              title="Ayirathil oruvan"
-              subheader="This movie with the plot of exploring cholas dynasty in pasts"
-            />
-            <CardContent>
-              <Typography variant="body2" color="textSecondary" component="p">
-                This impressive paella is a perfect party dish and a fun meal to
-                cook together with your guests. Add 1 cup of frozen peas along
-                with the mussels, if you like.
-              </Typography>
-            </CardContent>
-          </Card>
-        </div>
-      </Container>
-    </ThemeProvider>
+          </div>
+        </Container>
+      </ThemeProvider>
+    </BrowserRouter>
   );
 }
 
