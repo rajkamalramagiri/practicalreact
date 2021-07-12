@@ -11,6 +11,8 @@ import { FormControlLabel } from "@material-ui/core";
 
 import UploadButtons from "./UploadButtons";
 import IconButton from "@material-ui/core/IconButton";
+
+import { Typography } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import SaveIcon from "@material-ui/icons/Save";
 
@@ -29,6 +31,9 @@ function App() {
   const [checked, setChecked] = useState(false);
   return (
     <div className="App">
+      <Typography variant="h2"> Welcome to MUI</Typography>
+      <Typography variant="body1"> Learn ui</Typography>
+      <Typography variant="subtitle1"> Learn ui</Typography>
       <h2>Master</h2>
       {/* default Button */}
       <Button className={classes.root}>Save</Button>
