@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   input: {
-    display: "none",
+    // display: "none",
   },
 }));
 

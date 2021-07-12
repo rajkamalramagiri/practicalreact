@@ -1,9 +1,11 @@
+import Box from "@material-ui/core/Box";
 import "./App.css";
 import { useState } from "react";
 import { Button } from "@material-ui/core";
 import { ButtonGroup } from "@material-ui/core";
 import { Checkbox } from "@material-ui/core";
 import { TextField } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 
 import { FormControlLabel } from "@material-ui/core";
 
@@ -15,20 +17,28 @@ import SaveIcon from "@material-ui/icons/Save";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
 
+const useStyles = makeStyles({
+  root: {
+    backgroundColor: "yellow",
+    color: "black",
+    borderRadius: "15px",
+  },
+});
 function App() {
+  const classes = useStyles();
   const [checked, setChecked] = useState(false);
   return (
     <div className="App">
       <h2>Master</h2>
       {/* default Button */}
-      <Button>Save</Button>
+      <Button className={classes.root}>Save</Button>
       {/* contained buttons */}
       <Button variant="contained">Save</Button>
       <Button variant="contained" color="primary">
-        Save
+        Primary
       </Button>
       <Button variant="contained" color="secondary">
-        Save
+        Secondary
       </Button>
       <br></br>
       <br></br>
@@ -43,10 +53,10 @@ function App() {
       <br></br>
       <br></br>
       <Button variant="contained" color="primary" size="large">
-        Save
+        Large
       </Button>
       <Button variant="contained" color="primary" size="small" disabled>
-        Save
+        Small
       </Button>
       <Button
         variant="contained"
@@ -120,11 +130,30 @@ function App() {
         <TextField
           variant="filled"
           // variant="outlined"
-          color="secondary"
+          // color="primary"
           // type="date"
           // type="time"
           placeholder="abc@xyz.com"
           label="Email  "
+        />
+
+        <TextField
+          id="standard-basic"
+          label="Standard"
+          style={{ backgroundColor: "yellow" }}
+        />
+        <TextField id="filled-basic" label="Filled" variant="filled" />
+        <TextField
+          type="date"
+          id="outlined-basic"
+          label="Outlined"
+          variant="outlined"
+        />
+        <TextField
+          type="time"
+          id="outlined-basic"
+          label="Time"
+          variant="filled"
         />
       </div>
     </div>
