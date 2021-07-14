@@ -40,7 +40,7 @@ function EmployeeForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!validate()) alert("dlf");
+    if (validate()) alert("dlf");
   };
   return (
     <Form onSubmit={handleSubmit}>

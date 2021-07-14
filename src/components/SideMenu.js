@@ -8,7 +8,7 @@ const useStyles = makeStyles({
     position: "absolute",
     left: "0px",
     width: "320px",
-    height: "100%",
+    height: "auto",
     backgroundColor: "#253053",
   },
 });
