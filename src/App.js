@@ -24,7 +24,6 @@ import { Typography } from "@material-ui/core";
 import FormControl from "@material-ui/core/FormControl";
 import { Container } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core";
-import { createTheme, ThemeProvider } from "@material-ui/core";
 import { Button } from "@material-ui/core";
 import { purple } from "@material-ui/core/colors";
 import { TextField } from "@material-ui/core";
@@ -41,6 +40,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Divider from "@material-ui/core/Divider";
 import InboxIcon from "@material-ui/icons/Inbox";
 import DraftsIcon from "@material-ui/icons/Drafts";
+import { createTheme, ThemeProvider } from "@material-ui/core/styles";
 
 const theme = createTheme({
   palette: {
