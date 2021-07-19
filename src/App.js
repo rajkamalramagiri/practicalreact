@@ -1,9 +1,11 @@
 import "./App.css";
+import Parent from "./components/Parent";
+import Title from "./components/Title";
 
 function App() {
   return (
     <div className="App">
-      <h2>Master</h2>
+      <Parent />
     </div>
   );
 }
