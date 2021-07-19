@@ -5,11 +5,17 @@ const useStyles = makeStyles({
   sideMenu: {
     display: "flex",
     flexDirection: "column",
-    position: "absolute",
+    flexGrow: "1",
+    overflowY: "scroll",
+    position: "fixed",
     left: "0px",
     width: "320px",
-    height: "auto",
+    height: "100%",
     backgroundColor: "#253053",
+
+    "&::-webkit-scrollbar": {
+      display: "none",
+    },
   },
 });
 
@@ -17,7 +23,8 @@ function SideMenu() {
   const classes = useStyles();
   return (
     <div className={classes.sideMenu}>
-      <h2>sidemedu</h2>
+      <h2>sidemenu</h2>
+      <h2>sidemenu</h2>
     </div>
   );
 }
