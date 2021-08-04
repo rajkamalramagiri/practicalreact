@@ -12,6 +12,7 @@ function PaginationTable() {
     {
       columns,
       data,
+      initialState: { pageIndex: 2 },
     },
     usePagination
   );
@@ -20,16 +21,19 @@ function PaginationTable() {
     getTableBodyProps,
     headerGroups,
     page,
+    setPageSize,
     nextPage,
     previousPage,
     canNextPage,
     canPreviousPage,
     pageOptions,
     state,
+    gotoPage,
+    pageCount,
     prepareRow,
     footerGroups,
   } = tableInstance;
-  const { pageIndex } = state;
+  const { pageIndex, pageSize } = state;
   return (
     <>
       <table {...getTableProps()}>
@@ -64,12 +68,44 @@ function PaginationTable() {
             {pageIndex + 1}of {pageOptions.length}
           </strong>
         </span>
+        <span>
+          | Go to page:{` `}
+          <input
+            type="number"
+            defaultValue={pageIndex + 1}
+            onChange={(e) => {
+              const pageNumber = e.target.value
+                ? Number(e.target.value) - 1
+                : 0;
+              gotoPage(pageNumber);
+            }}
+            style={{ width: "50px" }}
+          />
+        </span>
+        <select
+          value={pageSize}
+          onChange={(e) => setPageSize(Number(e.target.value))}
+        >
+          {[10, 25, 50].map((pageSize) => (
+            <option key={pageSize} value={pageSize}>
+              Show {pageSize}
+            </option>
+          ))}
+        </select>
+        <button
+          disabled={!canPreviousPage}
+          onClick={() => gotoPage(0)}
+        >{`<<`}</button>
         <button disabled={!canPreviousPage} onClick={() => previousPage()}>
           Previous
         </button>
         <button disabled={!canNextPage} onClick={() => nextPage()}>
           Next
         </button>
+        <button
+          disabled={!canNextPage}
+          onClick={() => gotoPage(pageCount - 1)}
+        >{`>>`}</button>
       </div>
     </>
   );
